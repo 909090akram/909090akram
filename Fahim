@@ -1,0 +1,34 @@
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class MyServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setStatus(HttpServletResponse.SC_OK);
+
+        String name = request.getParameter("name");
+        String serviceButton = request.getParameter("serviceButton");
+
+        // Create the HTML content
+        StringBuilder htmlContent = new StringBuilder();
+        htmlContent.append("<html><body>");
+        htmlContent.append("<h1>Name: ").append(name).append("</h1>");
+
+        // Check if the service button was pressed
+        if (serviceButton != null) {
+            htmlContent.append("<h2>Service: Fahim</h2>");
+        } else {
+            htmlContent.append("<form method='post'>");
+            htmlContent.append("<input type='submit' name='serviceButton' value='Press me for Fahim' />");
+            htmlContent.append("</form>");
+        }
+
+        htmlContent.append("</body></html>");
+
+        // Send the HTML response
+        response.getWriter().println(htmlContent.toString());
+    }
+}
